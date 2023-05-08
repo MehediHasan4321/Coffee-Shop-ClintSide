@@ -1,6 +1,9 @@
 import React from 'react';
 import '../AddCoffee/AddCoffee.css'
+import { useLoaderData } from 'react-router-dom';
+import Swal from 'sweetalert2';
 const AddCoffee = () => {
+    const data = useLoaderData()
     const handleUpdateCoffee = event => {
         event.preventDefault()
         const form = event.target
@@ -11,8 +14,38 @@ const AddCoffee = () => {
         const category = form.category.value;
         const details = form.details.value;
         const url = form.url.value
-        const singleCoffee = { coffeeName, chefName, supplyerName, test, category, details, url }
-        console.log(singleCoffee)
+        const updateCoffee = { coffeeName, chefName, supplyerName, test, category, details, url }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to update this Coffee",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, update it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/coffees/${data._id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(updateCoffee)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if(data.modifiedCount>0){
+                            Swal.fire(
+                                'Updated !!',
+                                "Your Has Been Updated",
+                                'success'
+                            )
+                        }
+                    })
+                
+            }
+        })
+
     }
     return (
         <div className='container mx-auto w-full  flex flex-col justify-center items-center customBg'>
@@ -27,36 +60,36 @@ const AddCoffee = () => {
                         <div className='flex gap-5'>
                             <div className='flex flex-col gap-2 w-1/2'>
                                 <span>Coffee Name</span>
-                                <input className='px-4 py-2' type="text" name="coffeeName" id="" placeholder='Enter Coffee Name' />
+                                <input className='px-4 py-2' type="text" name="coffeeName" defaultValue={data.coffeeName} id="" placeholder='Enter Coffee Name' />
                             </div>
                             <div className='flex flex-col gap-2 w-1/2'>
                                 <span>Chef Name</span>
-                                <input className='px-4 py-2' type="text" name="chefName" id="" placeholder='Enter Chef Name' />
+                                <input className='px-4 py-2' type="text" name="chefName" defaultValue={data.chefName} id="" placeholder='Enter Chef Name' />
                             </div>
                         </div>
                         <div className='flex gap-3'>
                             <div className='flex flex-col gap-2 w-1/2'>
                                 <span>Supplyer Name</span>
-                                <input className='px-4 py-2' type="text" name="supplyerName" id="" placeholder='Enter Coffee Name' />
+                                <input className='px-4 py-2' type="text" defaultValue={data.supplyerName} name="supplyerName" id="" placeholder='Enter Coffee Name' />
                             </div>
                             <div className='flex flex-col gap-2 w-1/2'>
                                 <span>Test</span>
-                                <input className='px-4 py-2' type="text" name="test" id="" placeholder='Enter Chef Name' />
+                                <input className='px-4 py-2' type="text" defaultValue={data.test} name="test" id="" placeholder='Enter Chef Name' />
                             </div>
                         </div>
                         <div className='flex gap-3'>
                             <div className='flex flex-col gap-2 w-1/2'>
                                 <span>Category</span>
-                                <input className='px-4 py-2' type="text" name="category" id="" placeholder='Enter Coffee Name' />
+                                <input className='px-4 py-2' type="text" defaultValue={data.category} name="category" id="" placeholder='Enter Coffee Name' />
                             </div>
                             <div className='flex flex-col gap-2 w-1/2'>
                                 <span>Details</span>
-                                <input className='px-4 py-2' type="text" name="details" id="" placeholder='Enter Chef Name' />
+                                <input className='px-4 py-2' type="text" defaultValue={data.details} name="details" id="" placeholder='Enter Chef Name' />
                             </div>
                         </div>
                         <div className='flex flex-col gap-2 w-full'>
                             <span>Photo URL</span>
-                            <input className='px-4 py-2' type="url" name="url" id="" placeholder='Enter Chef Name' />
+                            <input className='px-4 py-2' type="url" defaultValue={data.url} name="url" id="" placeholder='Enter Chef Name' />
                         </div>
                         <div>
                             <input className='w-full bg-[#D2B48C] py-2 font-semibold' type="submit" value="Update Coffee" />

@@ -1,6 +1,6 @@
 import React from 'react';
 import './AddCoffee.css'
-import { Toaster, toast } from 'react-hot-toast';
+import Swal from 'sweetalert2';
 const AddCoffee = () => {
     const handleCoffeeAdd = event => {
         event.preventDefault()
@@ -14,20 +14,36 @@ const AddCoffee = () => {
         const url = form.url.value
         const singleCoffee = { coffeeName, chefName, supplyerName, test, category, details, url }
 
-        fetch('http://localhost:5000/coffees',{
-            method:'POST',
-            headers:{
-                'content-type':'application/json'
-            },
-            body:JSON.stringify(singleCoffee)
-        })
-        .then(res=>res.json())
-        .then(data=>{
-            if(data.acknowledged){
-                toast.success('Successfully A New Coffee Added')
-                
+        Swal.fire({
+            title: 'Do You Want To Add?',
+            text: "If You Add Then It Will Show Your UI!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, add it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('http://localhost:5000/coffees', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(singleCoffee)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.insertedId) {
+                            Swal.fire(
+                                'Coffee Added',
+                                'Your Coffee Successfully Added to DB',
+                                'success'
+                            )
+                        }
+                    })
             }
         })
+
     }
     return (
         <div className='container mx-auto w-full  flex flex-col justify-center items-center customBg'>
@@ -42,7 +58,7 @@ const AddCoffee = () => {
                         <div className='flex gap-5'>
                             <div className='flex flex-col gap-2 w-1/2'>
                                 <span>Coffee Name</span>
-                                <input className='px-4 py-2' type="text"  name="coffeeName" id="" placeholder='Enter Coffee Name' />
+                                <input className='px-4 py-2' type="text" name="coffeeName" id="" placeholder='Enter Coffee Name' />
                             </div>
                             <div className='flex flex-col gap-2 w-1/2'>
                                 <span>Chef Name</span>
@@ -79,7 +95,7 @@ const AddCoffee = () => {
                     </div>
                 </div>
             </form>
-            <Toaster position='top-right'/>
+
         </div>
     );
 };
