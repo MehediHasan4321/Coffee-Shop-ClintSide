@@ -2,7 +2,7 @@ import React from 'react';
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa'
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-const Coffee = ({ coffee }) => {
+const Coffee = ({ coffee,coffees,setCoffees }) => {
     const { url, coffeeName, test, chefName, price, category, _id } = coffee
     const handleDelete = id => {
         Swal.fire({
@@ -30,6 +30,7 @@ const Coffee = ({ coffee }) => {
                                 'success'
                             )
                         }
+                        setCoffees(coffees.filter(cof=>cof._id !== id))
                     })
             }
         })
