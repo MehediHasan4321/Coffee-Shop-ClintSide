@@ -9,7 +9,7 @@ const AllCoffee = () => {
 
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-5 container mx-auto my-32'>
             {
-                coffees.map(coffee => <div className='mx-auto'><Coffee key={coffee._id} coffees={coffees} setCoffees={setCoffees} coffee={coffee} /></div>)
+                coffees.map(coffee => <div key={coffee._id} className='mx-auto'><Coffee coffees={coffees} setCoffees={setCoffees} coffee={coffee} /></div>)
             }
         </div>
 

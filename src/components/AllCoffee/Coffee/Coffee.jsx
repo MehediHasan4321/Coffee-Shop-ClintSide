@@ -17,7 +17,7 @@ const Coffee = ({ coffee,coffees,setCoffees }) => {
             if (result.isConfirmed) {
                 //   
                 console.log('delete conforme')
-                fetch(`http://localhost:5000/coffees/${_id}`, {
+                fetch(`https://coffee-shop-server-mehedihasan4321.vercel.app/coffees/${_id}`, {
                     method: 'DELETE',
                     
                 })
