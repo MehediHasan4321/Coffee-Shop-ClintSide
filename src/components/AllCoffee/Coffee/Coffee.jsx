@@ -37,7 +37,7 @@ const Coffee = ({ coffee,coffees,setCoffees }) => {
     }
     return (
         <>
-            <div className='w-[550px] h-60 border-2 flex justify-between gap-5 p-3'>
+            <div className='w-[550px] h-60 border-2 flex justify-between gap-5 p-3 hover:scale-105'>
                 <img className='w-60 ' src={url} alt="Coffee Images" />
                 <div className=' text-left space-y-2 font-serif my-auto'>
                     <h2 className='text-lg font-semibold'>Name : {coffeeName}</h2>

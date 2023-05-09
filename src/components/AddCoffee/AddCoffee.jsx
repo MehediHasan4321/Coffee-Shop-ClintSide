@@ -38,7 +38,9 @@ const AddCoffee = () => {
                                 'Coffee Added',
                                 'Your Coffee Successfully Added to DB',
                                 'success'
+                                
                             )
+                            form.reset()
                         }
                     })
             }
