@@ -14,7 +14,7 @@ const Footer = () => {
         <div className='w-full h-auto footer-custom-bg'>
             <div className='container mx-auto grid md:grid-cols-3 py-24'>
                 <div className='md:col-span-1 px-5'>
-                    <img src={brand_logo ? brand_logo : 'not found'} alt="coffee shop logo" />
+                    <img className='w-20' src={brand_logo ? brand_logo : 'not found'} alt="coffee shop logo" />
                     <h2 className='text-4xl my-4'>{brand_name ? brand_name : 'name not found'}</h2>
                     <p className='text-gray-600'>{brand_description ? brand_description : 'not found'}</p>
                     <div className='flex gap-5 mt-4 text-4xl'>

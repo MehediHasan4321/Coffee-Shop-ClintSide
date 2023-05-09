@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import AddCoffee from './components/AddCoffee/AddCoffee.jsx'
 import UpdateCoffee from './components/UpdateCoffee/UpdateCoffee.jsx'
 import AllCoffee from './components/AllCoffee/AllCoffee.jsx'
+import InstragramMedia from './components/InstragramMedia/InstragramMedia.jsx'
 
 const route = createBrowserRouter([
   {
@@ -25,7 +26,8 @@ const route = createBrowserRouter([
         path:'/updateCoffee/:id',
         element:<UpdateCoffee/>,
         loader:({params})=> fetch(`http://localhost:5000/coffees/${params.id}`)
-      }
+      },
+      
     ]
   }
   
